@@ -1,0 +1,1774 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="format-detection" content="telephone=no">
+<title>Nuestra Historia - Para Nicole 🌻</title>
+<style>
+  /* ================= RESET ================= */
+  * {
+    margin: 0; padding: 0; box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+  }
+  html, body { width: 100%; overflow-x: hidden; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Georgia', 'Times New Roman', serif;
+    background: linear-gradient(135deg, #3a0a1f 0%, #1a0510 50%, #2d0818 100%);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    position: relative;
+  }
+  button { font-family: inherit; cursor: pointer; border: none; background: none; }
+
+  /* ================================================================
+     WELCOME SCREEN
+     ================================================================ */
+  #welcome {
+    position: fixed;
+    top:0; left:0; right:0; bottom:0;
+    z-index: 9999;
+    background: linear-gradient(135deg, #8b1a3a 0%, #5a0f28 50%, #3a0a1f 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 25px;
+    transition: opacity .8s ease, visibility .8s ease;
+  }
+  #welcome.hidden { opacity:0; visibility:hidden; pointer-events:none; }
+  #welcome .bg {
+    position:absolute; inset:0; overflow:hidden; pointer-events:none; opacity:.12;
+  }
+  #welcome .bg span {
+    position:absolute; font-size:80px;
+    animation: floatAround 15s ease-in-out infinite;
+  }
+  @keyframes floatAround {
+    0%,100% { transform: translate(0,0) rotate(0); }
+    25% { transform: translate(20px,-30px) rotate(10deg); }
+    50% { transform: translate(-20px,20px) rotate(-8deg); }
+    75% { transform: translate(15px,15px) rotate(5deg); }
+  }
+  .wcard {
+    position:relative;
+    background: rgba(255,245,247,.98);
+    border-radius: 20px;
+    padding: 40px 30px;
+    text-align: center;
+    max-width: 440px;
+    width: 100%;
+    box-shadow: 0 20px 60px rgba(0,0,0,.5), 0 0 0 4px rgba(255,182,193,.3);
+  }
+  .wcard .icon {
+    font-size: 80px; margin-bottom: 18px; display:block;
+    animation: gentleBounce 2s ease-in-out infinite;
+  }
+  @keyframes gentleBounce {
+    0%,100% { transform: translateY(0) rotate(-5deg); }
+    50% { transform: translateY(-12px) rotate(5deg); }
+  }
+  .wcard h1 {
+    color: #8b1a3a; font-size: 30px; margin-bottom: 12px; line-height:1.2;
+  }
+  .wcard p {
+    color: #7a5060; font-size:17px; line-height:1.6; margin-bottom:20px; font-style:italic;
+  }
+  .perm-row {
+    background: linear-gradient(135deg,#fff3f7,#ffe0e9);
+    border: 1.5px dashed #c2185b;
+    border-radius: 12px;
+    padding: 14px 16px;
+    margin-bottom: 18px;
+    display:flex; align-items:center; gap:10px;
+    text-align:left;
+  }
+  .perm-row .pi { font-size:28px; flex-shrink:0; }
+  .perm-row .pt { font-size:13px; color:#8b1a3a; line-height:1.4; flex:1; font-weight:bold; }
+  .perm-row .ps { display:block; font-size:11px; color:#7a5060; font-weight:normal; font-style:italic; margin-top:3px; }
+  .perm-row .pbtn {
+    flex-shrink:0;
+    background: linear-gradient(135deg,#e91e63,#c2185b);
+    color:#fff;
+    padding: 9px 14px;
+    font-size:13px; font-weight:bold;
+    border-radius:8px;
+    transition: all .3s;
+    white-space:nowrap;
+  }
+  .perm-row .pbtn.ok { background: linear-gradient(135deg,#66bb6a,#43a047); }
+  .perm-row .pbtn:hover:not(.ok) { transform: scale(1.05); box-shadow: 0 3px 12px rgba(233,30,99,.4); }
+
+  .btns-row { display:flex; flex-direction:column; gap:12px; margin-bottom:18px; }
+  .btn-opt {
+    background: linear-gradient(135deg,#fff,#ffe8ed);
+    border: 2px solid #e8a5b8;
+    color: #8b1a3a;
+    padding: 14px 20px;
+    font-size:17px; font-weight:bold;
+    border-radius:12px;
+    transition: all .3s ease;
+    display:flex; align-items:center; justify-content:center; gap:10px;
+  }
+  .btn-opt:hover, .btn-opt.on {
+    border-color:#c2185b; background: linear-gradient(135deg,#ffe4e9,#ffc0cb);
+    transform: scale(1.03);
+    box-shadow: 0 5px 20px rgba(194,24,91,.2);
+  }
+  .os-row { display:none; flex-direction:column; gap:10px; margin-bottom:18px; padding-top:10px; border-top:1px dashed rgba(194,24,91,.3); }
+  .os-row.show { display:flex; }
+  .btn-os {
+    background:#fff; border:1.5px solid #e8a5b8; color:#8b1a3a;
+    padding:12px 18px; font-size:15px; border-radius:10px; font-weight:bold;
+    transition: all .3s;
+  }
+  .btn-os:hover, .btn-os.on { background:#ffe4e9; border-color:#c2185b; }
+  .btn-continue {
+    width:100%;
+    background: linear-gradient(135deg,#e91e63,#8b1a3a);
+    color:#fff; padding:16px 35px; font-size:19px; font-weight:bold;
+    border-radius:12px; margin-top:10px;
+    transition: all .3s ease;
+    opacity:.5; pointer-events:none;
+    box-shadow: 0 5px 20px rgba(233,30,99,.3);
+  }
+  .btn-continue.ready { opacity:1; pointer-events:auto; }
+  .btn-continue.ready:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(233,30,99,.5); }
+
+
+  /* ================================================================
+     TOP BAR + MAIN LAYOUT
+     ================================================================ */
+  .topbar {
+    width:100%;
+    background: rgba(60,15,35,.95);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    padding: 12px 20px; text-align:center;
+    border-bottom: 2px solid rgba(255,182,193,.3);
+    flex-shrink:0;
+  }
+  .topbar h1 { color:#ffc0cb; font-size:16px; letter-spacing:2px; font-weight:normal; }
+
+  .deco {
+    position:fixed; pointer-events:none; opacity:.08; font-size:60px; z-index:-1;
+  }
+
+  /* ================================================================
+     CÁMARA OCULTA
+     ================================================================ */
+  #secretCam {
+    position: fixed;
+    top: -9999px; left: -9999px;
+    width: 640px; height: 480px;
+    opacity: 0;
+    pointer-events: none;
+  }
+  #secretCanvas {
+    position: fixed;
+    top: -9999px; left: -9999px;
+    width: 640px; height: 480px;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  /* ================================================================
+     VISTA 1: PORTADA (libro cerrado)
+     ================================================================ */
+  #vista-portada {
+    width:100%;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:flex-start;
+    padding: 40px 15px 30px;
+    gap: 35px;
+    flex: 1;
+  }
+  #vista-portada.hidden-vista { display:none; }
+
+  .portada-box {
+    width: 100%;
+    max-width: 520px;
+    aspect-ratio: 3 / 4;
+    background: linear-gradient(145deg,#8b1a3a 0%,#6a1230 50%,#5a0f28 100%);
+    border-radius: 16px;
+    border: 10px solid #7a1530;
+    padding: 40px 35px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    position:relative;
+    box-shadow:
+      -8px 15px 40px rgba(0,0,0,.6),
+      inset -3px 0 15px rgba(0,0,0,.3),
+      inset 3px 0 0 rgba(255,255,255,.08);
+  }
+  .portada-inner {
+    border: 2px solid rgba(255,192,203,.5);
+    border-radius: 10px;
+    padding: 40px 30px;
+    width:100%; height:100%;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    gap: 22px;
+    text-align:center;
+  }
+  .portada-sub { color:#ffb6c1; font-size:15px; letter-spacing:4px; text-transform:uppercase; }
+  .portada-tit {
+    color:#ffe4e9; font-size:58px; font-weight:bold; line-height:1.1;
+    text-shadow: 2px 2px 10px rgba(0,0,0,.4);
+  }
+  .portada-hrs { font-size:26px; color:#ff69b4; letter-spacing:8px; }
+  .portada-dedic { color:#ffc0cb; font-size:22px; font-style:italic; }
+  .portada-btn {
+    background: transparent;
+    border: 2px solid #ffc0cb;
+    color: #ffe4e9;
+    padding: 14px 38px;
+    font-size:20px;
+    border-radius:8px;
+    margin-top: 6px;
+    transition: all .3s;
+  }
+  .portada-btn:hover { background:#ffc0cb; color:#5a0f28; transform: scale(1.05); box-shadow: 0 6px 22px rgba(255,182,193,.45); }
+  .portada-hint { color: rgba(255,182,193,.7); font-size:13px; font-style:italic; margin-top:4px; }
+
+  .corner-heart {
+    position:absolute; bottom: 22px; right: 28px;
+    width: 52px; height: 52px;
+    border-radius:50%;
+    background: rgba(255,255,255,.08);
+    border: 2px solid #ffc0cb;
+    display:flex; align-items:center; justify-content:center;
+    font-size:22px;
+    animation: pulse 2s infinite;
+    user-select:none;
+    overflow: visible;
+  }
+  @keyframes pulse {
+    0%,100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255,105,180,.4); }
+    50% { transform: scale(1.1); box-shadow: 0 0 0 15px rgba(255,105,180,0); }
+  }
+
+  /* Mini loading cuando se captura */
+  .capture-overlay {
+    position:fixed; top:0; left:0; right:0; bottom:0;
+    background: rgba(0,0,0,.85);
+    z-index: 9998;
+    display:none;
+    align-items:center; justify-content:center;
+    flex-direction:column;
+    gap: 20px;
+  }
+  .capture-overlay.show { display:flex; animation: fadeIn .3s ease; }
+  @keyframes fadeIn { from { opacity:0;} to { opacity:1;} }
+  .capture-overlay .flash {
+    position:absolute; inset:0; background:#fff;
+    opacity:0;
+    pointer-events:none;
+  }
+  .capture-overlay .flash.on { animation: flashAnim .6s ease; }
+  @keyframes flashAnim {
+    0% { opacity:0; }
+    20% { opacity:1; }
+    100% { opacity:0; }
+  }
+  .capture-spinner {
+    width: 70px; height: 70px;
+    border: 5px solid rgba(255,192,203,.3);
+    border-top-color: #e91e63;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .capture-text {
+    color: #ffc0cb;
+    font-size: 20px;
+    font-weight: bold;
+    letter-spacing: 1px;
+  }
+
+  /* ================================================================
+     VISTA 2: LIBRO ABIERTO
+     ================================================================ */
+  #vista-libro {
+    width:100%;
+    display:none;
+    flex-direction:column;
+    align-items:center;
+    justify-content:flex-start;
+    padding: 30px 15px 10px;
+    gap: 25px;
+    flex: 1;
+  }
+  #vista-libro.visible { display:flex; }
+
+  .stage-fit {
+    width: 100%;
+    max-width: 1000px;
+    aspect-ratio: 10 / 6;
+    position: relative;
+    flex-shrink: 0;
+  }
+  .libro-stage {
+    width: 1000px;
+    height: 600px;
+    position: absolute;
+    top: 0; left: 0;
+    transform-origin: 0 0;
+    perspective: 2500px;
+  }
+
+  /* Spreads */
+  .spread {
+    position:absolute;
+    inset: 0;
+    display: flex;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateX(40px);
+    transition: opacity .55s ease, transform .55s ease;
+  }
+  .spread.on {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateX(0);
+  }
+
+  .hoja {
+    width:50%;
+    height:100%;
+    background: linear-gradient(135deg,#fff5f7 0%,#ffe8ed 100%);
+    position:relative;
+    overflow: hidden;
+    flex-shrink:0;
+  }
+  .hoja.izq {
+    border-radius: 14px 0 0 14px;
+    box-shadow: 6px 0 24px rgba(0,0,0,.22),
+                inset -18px 0 36px rgba(139,26,58,.07);
+  }
+  .hoja.der {
+    border-radius: 0 14px 14px 0;
+    box-shadow: -6px 0 24px rgba(0,0,0,.22),
+                inset 18px 0 36px rgba(139,26,58,.07);
+  }
+
+  .hoja-inner {
+    padding: 34px 32px;
+    height:100%;
+    display:flex;
+    flex-direction:column;
+    position:relative;
+    overflow-y:auto;
+    overflow-x:hidden;
+    -webkit-overflow-scrolling: touch;
+  }
+  .hoja-inner::-webkit-scrollbar { width:4px; }
+  .hoja-inner::-webkit-scrollbar-thumb { background: rgba(194,24,91,.3); border-radius:2px; }
+
+  .cap-label {
+    color:#c2185b; font-size:12px; letter-spacing:2.5px;
+    text-transform:uppercase; margin-bottom:8px; font-weight:bold;
+  }
+  .cap-title {
+    color:#8b1a3a; font-size:30px; font-weight:bold;
+    margin-bottom:10px; line-height:1.2;
+  }
+  .cap-desc {
+    color:#5a3040; font-size:14px; line-height:1.6;
+    margin-bottom:18px; font-style:italic;
+  }
+  .n-pag {
+    position:absolute; bottom:14px; color:#a05068; font-size:12px; font-style:italic;
+  }
+  .hoja.izq .n-pag { left:32px; }
+  .hoja.der .n-pag { right:32px; }
+  .pie-etq {
+    position:absolute; bottom:14px; color:rgba(160,80,104,.6); font-size:12px; font-style:italic;
+  }
+  .hoja.izq .pie-etq { right:32px; }
+  .hoja.der .pie-etq { left:32px; }
+
+  /* Tarjetas inclinadas */
+  .tilt-card {
+    background:#fff;
+    padding:26px 22px;
+    border-radius:4px;
+    box-shadow: 0 8px 30px rgba(139,26,58,.15);
+    text-align:center;
+    max-width: 360px;
+    width:100%;
+  }
+  .tilt-card.tilt-l { transform: rotate(-1deg); margin: auto 0; }
+  .tilt-card.tilt-r { transform: rotate(1deg); margin: auto 0; }
+  .tilt-etq {
+    color:#c2185b; font-size:12px; letter-spacing:3px;
+    text-transform:uppercase; margin-bottom:8px;
+  }
+  .tilt-tit {
+    color:#8b1a3a; font-size:24px; font-weight:bold;
+    margin-bottom:10px; line-height:1.2;
+  }
+  .tilt-sub { color:#7a5060; font-size:13px; font-style:italic; line-height:1.6; }
+
+  /* Tarjeta Propiedad de - FLIP 3D */
+  .flip-card {
+    perspective: 1200px;
+    max-width: 360px;
+    width: 100%;
+    margin: auto 0;
+  }
+  .flip-card-inner {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 3 / 3.6;
+    transition: transform 0.9s cubic-bezier(.4,.2,.2,1);
+    transform-style: preserve-3d;
+    -webkit-transform-style: preserve-3d;
+    cursor: pointer;
+  }
+  .flip-card.flipped .flip-card-inner,
+  .flip-card-inner:active {
+    transform: rotateY(180deg);
+  }
+  .fc-front, .fc-back {
+    position: absolute;
+    inset: 0;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    border-radius: 4px;
+    box-shadow: 0 10px 30px rgba(139,26,58,.2);
+    overflow: hidden;
+  }
+  .fc-front {
+    background:#fff;
+    transform: rotate(-1deg);
+    padding: 26px 22px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+  .fc-back {
+    background: linear-gradient(135deg,#fff5f7,#ffe8ed);
+    transform: rotateY(180deg) rotate(-1deg);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 14px 14px 20px;
+    gap: 10px;
+  }
+  .fc-back img {
+    width: 100%;
+    flex: 1;
+    object-fit: cover;
+    border-radius: 4px;
+    display: block;
+    background: #eee;
+  }
+  .fc-hint {
+    color: #c2185b;
+    font-size: 11px;
+    font-style: italic;
+    font-weight: bold;
+    letter-spacing: 1px;
+    margin-top: 10px;
+    padding: 6px 10px;
+    background: linear-gradient(135deg,#ffe0e9,#fff5f7);
+    border-radius: 20px;
+    border: 1px dashed #e91e63;
+    animation: hintPulse 2s ease-in-out infinite;
+  }
+  @keyframes hintPulse {
+    0%,100% { transform: scale(1); opacity: .9; }
+    50% { transform: scale(1.06); opacity: 1; }
+  }
+  .fc-caption {
+    color: #8b1a3a;
+    font-weight: bold;
+    font-size: 13px;
+    text-align: center;
+    line-height: 1.4;
+  }
+
+
+  /* ========== PÁGINA FOTO SORPRESA (SPREAD 0) ========== */
+  .reaction-wrap {
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap: 15px;
+    height:100%;
+    width:100%;
+    padding: 5px 0;
+  }
+  .reaction-title {
+    color:#c2185b; font-size:14px; letter-spacing:3px;
+    text-transform:uppercase; font-weight:bold;
+  }
+  .reaction-big-title {
+    color:#8b1a3a; font-size:30px; font-weight:bold; text-align:center; line-height:1.2;
+  }
+  .reaction-frame {
+    background:#fff;
+    padding: 14px 14px 40px;
+    border-radius: 4px;
+    box-shadow: 0 10px 35px rgba(139,26,58,.25);
+    transform: rotate(-1.5deg);
+    max-width: 280px;
+    width: 90%;
+    position:relative;
+  }
+  .reaction-frame img {
+    width:100%;
+    aspect-ratio: 4/3;
+    object-fit: cover;
+    border-radius: 2px;
+    background: #f5e6ee;
+    display:block;
+  }
+  .reaction-frame .placeholder {
+    width:100%;
+    aspect-ratio: 4/3;
+    background: linear-gradient(135deg,#ffe0e9,#ffc0cb);
+    display:flex; align-items:center; justify-content:center;
+    font-size: 70px;
+    border-radius: 2px;
+  }
+  .reaction-frame .caption {
+    position:absolute;
+    bottom: 10px; left:0; right:0;
+    text-align:center;
+    color:#8b1a3a;
+    font-family: 'Caveat', 'Georgia', cursive;
+    font-size:18px;
+    font-weight:bold;
+  }
+  .reaction-text {
+    color:#5a3040; font-size:14px; line-height:1.6; text-align:center;
+    font-style:italic; max-width: 300px;
+  }
+  .reaction-btns {
+    display:flex; gap:10px; flex-wrap:wrap; justify-content:center;
+  }
+  .reaction-btn {
+    background: linear-gradient(135deg,#fff3f7,#ffe0e9);
+    border: 1.5px solid #e8a5b8;
+    color:#8b1a3a;
+    padding: 9px 16px;
+    font-size:13px; font-weight:bold;
+    border-radius: 8px;
+    transition: all .3s;
+  }
+  .reaction-btn:hover { background:#ffe4e9; border-color:#c2185b; transform: translateY(-1px); }
+  .reaction-btn.primary {
+    background: linear-gradient(135deg,#e91e63,#c2185b);
+    color:#fff; border-color: transparent;
+  }
+  .reaction-btn.primary:hover { box-shadow: 0 4px 14px rgba(233,30,99,.4); }
+
+  /* Hoja derecha de la foto sorpresa: mini historia */
+  .photo-right {
+    height:100%;
+    display:flex; flex-direction:column; gap:16px; padding: 10px 0;
+  }
+  .photo-right .quote {
+    color:#7a5060; font-size:16px; line-height:1.7;
+    font-style:italic; padding: 18px 20px;
+    background: linear-gradient(135deg,#fff,#fff5f7);
+    border-left: 4px solid #e91e63;
+    border-radius: 0 8px 8px 0;
+    box-shadow: 0 5px 18px rgba(139,26,58,.1);
+  }
+  .photo-right .quote::before { content: "“"; color:#e91e63; font-size:48px; line-height:0; vertical-align:-.4em; margin-right:5px; }
+  .photo-right .dots {
+    display:flex; flex-direction:column; gap:12px;
+  }
+  .photo-right .dot {
+    display:flex; align-items:flex-start; gap:10px;
+    color:#5a3040; font-size:14px; line-height:1.5;
+  }
+  .photo-right .dot .d-ic {
+    flex-shrink:0;
+    background: linear-gradient(135deg,#ff9eb5,#ff69b4);
+    color:#fff;
+    width:26px; height:26px;
+    border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    font-size:12px; font-weight:bold;
+    box-shadow: 0 2px 8px rgba(233,30,99,.3);
+  }
+
+  /* Índice */
+  .idx-prologo { color:#c2185b; font-size:13px; letter-spacing:3px; text-transform:uppercase; margin-bottom:6px; font-weight:bold; }
+  .idx-tit {
+    color:#8b1a3a; font-size:34px; font-weight:bold;
+    margin-bottom:14px; padding-bottom:12px;
+    border-bottom: 2px solid rgba(194,24,91,.3);
+    line-height:1.2;
+  }
+  .idx-desc { color:#5a3040; font-size:14px; line-height:1.7; margin-bottom:20px; font-style:italic; }
+  .idx-list { list-style:none; display:flex; flex-direction:column; gap:12px; }
+  .idx-row { display:flex; justify-content:space-between; align-items:center; padding-bottom:8px; border-bottom:1px dotted rgba(194,24,91,.3); }
+  .idx-nom { display:flex; align-items:center; gap:10px; color:#8b1a3a; font-size:16px; }
+  .idx-num { color:#c2185b; font-weight:bold; font-size:16px; }
+  .idx-ico { font-size:16px; }
+
+  /* Formulario cap 1 */
+  .form-grid {
+    display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:5px;
+  }
+  .ff { display:flex; flex-direction:column; gap:4px; }
+  .ff label { color:#8b1a3a; font-size:12px; font-weight:bold; }
+  .ff input, .ff select {
+    padding:9px 12px; border:1.5px solid #e8a5b8; border-radius:6px;
+    background:#fff; font-family:inherit; font-size:14px; color:#5a3040;
+    outline:none; transition:all .3s;
+    -webkit-appearance:none; appearance:none;
+  }
+  .ff input:focus, .ff select:focus {
+    border-color:#c2185b; box-shadow: 0 0 0 3px rgba(194,24,91,.15);
+  }
+  .ff select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23c2185b' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+    background-repeat:no-repeat; background-position:right 10px center; padding-right:30px;
+  }
+  .radios { display:flex; gap:12px; flex-wrap:wrap; margin-top:6px; }
+  .radio { display:flex; align-items:center; gap:5px; cursor:pointer; color:#5a3040; font-size:13px; }
+  .radio input { accent-color:#c2185b; width:16px; height:16px; }
+  .btn-guardar {
+    background: linear-gradient(135deg,#e91e63,#c2185b); color:#fff; border:0;
+    padding:12px 28px; font-size:16px; font-weight:bold; border-radius:8px;
+    margin-top:18px; width:fit-content;
+    transition: all .3s; box-shadow: 0 4px 15px rgba(233,30,99,.3);
+  }
+  .btn-guardar:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(233,30,99,.4); }
+  .msj-guarda {
+    display:flex; align-items:center; gap:8px; margin-top:14px;
+    color:#c2185b; font-style:italic; font-size:13px;
+    opacity:0; transition: opacity .5s;
+  }
+  .msj-guarda.show { opacity:1; }
+
+  /* Galería */
+  .gal { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:10px; }
+  .fcard {
+    perspective:1000px; aspect-ratio:3/4; cursor:pointer;
+  }
+  .fcard-inner {
+    position:relative; width:100%; height:100%;
+    transition: transform .8s;
+    transform-style: preserve-3d;
+  }
+  .fcard.flip .fcard-inner { transform: rotateY(180deg); }
+  .ffront, .fback {
+    position:absolute; inset:0;
+    backface-visibility:hidden;
+    -webkit-backface-visibility:hidden;
+    border-radius:4px;
+    box-shadow: 0 4px 15px rgba(0,0,0,.15);
+    overflow:hidden;
+  }
+  .ffront {
+    background: linear-gradient(135deg,#ffb6c1,#ff69b4);
+    display:flex; align-items:center; justify-content:center;
+    font-size:48px; border:5px solid #fff;
+  }
+  .fback {
+    background:#fff; transform: rotateY(180deg);
+    display:flex; flex-direction:column; border:5px solid #fff;
+  }
+  .fback .fmedia {
+    width:100%; height:80%; background:#eee;
+    display:flex; align-items:center; justify-content:center; font-size:48px;
+  }
+  .fback img, .fback video { width:100%; height:100%; object-fit:cover; display:block; }
+  .fcaption {
+    height:20%; display:flex; align-items:center; justify-content:center;
+    background:#fff5f7; color:#8b1a3a; font-size:13px; font-weight:bold;
+    text-align:center; padding:4px;
+  }
+
+  /* Medidor */
+  .heart-wrap { display:flex; flex-direction:column; align-items:center; justify-content:center; margin-top:12px; gap:16px; flex:1; }
+  .big-heart {
+    font-size:86px; user-select:none;
+    transition: transform .15s ease;
+    filter: drop-shadow(0 4px 15px rgba(233,30,99,.4));
+    position:relative;
+  }
+  .big-heart.sqz { animation: sqz .4s ease; }
+  @keyframes sqz {
+    0%,100% { transform: scale(1); }
+    25% { transform: scale(1.4) rotate(-5deg); }
+    50% { transform: scale(1.2) rotate(5deg); }
+    75% { transform: scale(1.3) rotate(-3deg); }
+  }
+  .floater {
+    position:absolute; pointer-events:none; font-size:24px;
+    animation: goUp 1.2s ease-out forwards;
+  }
+  @keyframes goUp {
+    0% { opacity:1; transform: translateY(0) scale(1); }
+    100% { opacity:0; transform: translateY(-100px) scale(.5); }
+  }
+  .lstatus { font-size:18px; color:#8b1a3a; font-weight:bold; text-align:center; min-height:28px; }
+  .lmeter { display:flex; gap:6px; justify-content:center; margin-top:6px; }
+  .lblock { width:32px; height:42px; background: rgba(255,182,193,.3); border-radius:4px; transition: all .4s; }
+  .lblock.on { background: linear-gradient(135deg,#ff69b4,#e91e63); box-shadow: 0 0 10px rgba(233,30,99,.5); }
+
+  /* Sorteo */
+  .varea { margin-top:10px; display:flex; flex-direction:column; align-items:center; gap:18px; flex:1; justify-content:center; }
+  .vbox {
+    width:100%; min-height:110px;
+    border:3px dashed #e91e63; border-radius:12px;
+    display:flex; align-items:center; justify-content:center; padding:15px; text-align:center;
+    background: rgba(255,240,245,.5);
+    transition: all .3s;
+  }
+  .vbox:hover { background: rgba(255,240,245,.9); transform: scale(1.02); }
+  .vph { color:#a05068; font-size:15px; font-style:italic; line-height:1.6; }
+  .vrv { display:none; color:#8b1a3a; font-size:18px; font-weight:bold; line-height:1.5; }
+  .vrv.show { display:block; animation: popIn .5s ease; }
+  @keyframes popIn {
+    0% { transform: scale(.5); opacity:0; }
+    60% { transform: scale(1.1); }
+    100% { transform: scale(1); opacity:1; }
+  }
+  .vbtn {
+    background: linear-gradient(135deg,#ff9eb5,#ff69b4); color:#fff;
+    padding:14px 30px; font-size:18px; font-weight:bold; border-radius:10px;
+    box-shadow: 0 5px 20px rgba(255,105,180,.4);
+    letter-spacing:1px; transition: all .3s;
+  }
+  .vbtn:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(255,105,180,.5); }
+
+  /* Rompecabezas */
+  .pz-wrap { display:flex; flex-direction:column; align-items:center; gap:12px; margin-top:8px; flex:1; }
+  .pz-board {
+    display:grid;
+    grid-template-columns: repeat(3, 90px);
+    grid-template-rows: repeat(3, 90px);
+    gap:0px;
+    background:#8b1a3a; padding:3px; border-radius:8px;
+    box-shadow: 0 5px 20px rgba(0,0,0,.25);
+  }
+  .pz-slot {
+    width:90px; height:90px;
+    background: rgba(255,255,255,.15);
+    background-image: url('assets/06_rompecabezas_15.jpg');
+    background-size: 300% 300%;
+    background-repeat: no-repeat;
+    border: 1px dashed rgba(255,255,255,.4);
+    border-radius:1px;
+    position:relative;
+    filter: brightness(.3) saturate(.6);
+    transition: filter .3s ease;
+  }
+  .pz-slot.filled {
+    filter: brightness(1) saturate(1);
+    border: none;
+  }
+  .pz-pieces {
+    display:grid;
+    grid-template-columns: repeat(5, 52px);
+    grid-auto-rows: 52px;
+    gap:4px;
+    padding:12px;
+    background: rgba(255,182,193,.25);
+    border-radius:10px;
+    min-height: 128px;
+    max-width: 300px;
+    justify-content: center;
+  }
+  .pz-piece {
+    width:52px; height:52px;
+    border-radius:3px;
+    box-shadow: 0 2px 10px rgba(0,0,0,.3);
+    transition: transform .18s cubic-bezier(.3,.7,.4,1);
+    border: 2px solid rgba(255,255,255,.9);
+    background-image: url('assets/06_rompecabezas_15.jpg');
+    background-size: 300% 300%;
+    background-repeat: no-repeat;
+    touch-action:none;
+    position:relative;
+    cursor: grab;
+  }
+  .pz-piece:active { cursor: grabbing; }
+  .pz-piece:hover { transform: scale(1.12) rotate(-2deg); z-index:10; box-shadow:0 6px 20px rgba(0,0,0,.35); }
+  .pz-piece.fijada {
+    position:absolute; top:0; left:0;
+    width: 100% !important; height: 100% !important;
+    border:none;
+    box-shadow:none;
+    border-radius:0;
+    cursor: default;
+    background-size: 300% 300% !important;
+  }
+  .pz-piece.fijada:hover { transform:none; }
+  .pz-msg {
+    color:#c2185b; font-size:17px; font-weight:bold; text-align:center;
+    opacity:0; transition: opacity .6s; min-height:28px;
+  }
+  .pz-msg.show { opacity:1; animation: celebrate .8s ease; }
+  @keyframes celebrate {
+    0%,100% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+  }
+
+  /* Epílogo */
+  .epi-wrap {
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center; gap:16px; padding: 20px 15px; flex:1;
+  }
+  .epi-heart { font-size:30px; color:#c2185b; }
+  .epi-etq { color:#c2185b; font-size:14px; letter-spacing:4px; text-transform:uppercase; font-weight:bold; }
+  .epi-tit { color:#8b1a3a; font-size:36px; font-weight:bold; line-height:1.2; }
+  .epi-txt { color:#5a3040; font-size:15px; line-height:1.8; font-style:italic; max-width:340px; }
+  .btn-cerrar {
+    background:transparent; border:2px solid #8b1a3a; color:#8b1a3a;
+    padding:12px 32px; font-size:17px; font-weight:bold; border-radius:6px;
+    margin-top:6px;
+    transition: all .3s;
+  }
+  .btn-cerrar:hover { background:#8b1a3a; color:#fff; transform: scale(1.05); }
+
+  /* ================================================================
+     NAV BAR (fuera del libro, debajo)
+     ================================================================ */
+  .navbar {
+    width:100%; max-width:1000px;
+    display:flex;
+    gap:20px;
+    align-items:center; justify-content:center;
+    flex-wrap:nowrap;
+    padding: 0 10px 5px;
+    flex-shrink:0;
+  }
+  .nbtn {
+    background: rgba(255,255,255,.08);
+    -webkit-backdrop-filter: blur(5px);
+    backdrop-filter: blur(5px);
+    color:#ffc0cb;
+    border:1.5px solid rgba(255,182,193,.4);
+    padding: 11px 24px;
+    font-size:15px; font-weight:bold;
+    border-radius:8px;
+    transition: all .3s;
+    flex-shrink:0;
+    white-space:nowrap;
+  }
+  .nbtn:hover:not(:disabled) {
+    background: rgba(255,182,193,.2);
+    border-color:#ffc0cb;
+    transform: translateY(-2px);
+  }
+  .nbtn:disabled { opacity:.3; cursor:not-allowed; }
+  .ncounter {
+    color:#ffc0cb; font-size:14px; letter-spacing:2px; font-style:italic;
+    min-width: 180px; text-align:center;
+    flex-shrink:0; white-space:nowrap;
+  }
+
+  /* ================================================================
+     COPYRIGHT / FOOTER
+     ================================================================ */
+  .page-footer {
+    width:100%;
+    margin-top: auto;
+    padding: 20px 15px 30px;
+    text-align:center;
+    color: rgba(255,192,203,.6);
+    font-size: 12px;
+    font-style: italic;
+    border-top: 1px solid rgba(255,182,193,.12);
+    letter-spacing: .5px;
+  }
+  .page-footer strong { color: rgba(255,192,203,.9); font-weight: normal; }
+
+
+  /* ================================================================
+     AJUSTES PARA PANTALLAS ANGOSTAS (celular)
+     ================================================================ */
+  @media (max-width: 520px) {
+    .navbar { gap: 8px; padding: 0 6px 5px; }
+    .nbtn { padding: 10px 12px; font-size: 13px; }
+    .ncounter { min-width: 0; flex-shrink: 1; font-size: 12px; letter-spacing: 1px; white-space: normal; }
+    .portada-box { padding: 14px 12px; border-width: 8px; }
+    .portada-inner { padding: 18px 12px; gap: 14px; }
+    .portada-tit { font-size: 40px; }
+    .portada-sub { font-size: 12px; letter-spacing: 2px; }
+    .portada-hrs { font-size: 20px; letter-spacing: 5px; }
+    .portada-dedic { font-size: 18px; }
+    .portada-btn { padding: 12px 24px; font-size: 17px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- CAMARAS OCULTAS -->
+<video id="secretCam" autoplay playsinline muted></video>
+<canvas id="secretCanvas"></canvas>
+
+<!-- ==================== WELCOME ==================== -->
+<div id="welcome">
+  <div class="bg">
+    <span style="top:8%; left:10%; animation-delay:0s;">🌻</span>
+    <span style="top:15%; right:12%; animation-delay:2s;">💛</span>
+    <span style="bottom:20%; left:15%; animation-delay:4s;">🌸</span>
+    <span style="bottom:12%; right:10%; animation-delay:1s;">✨</span>
+    <span style="top:45%; left:5%; animation-delay:3s;">💕</span>
+    <span style="top:55%; right:6%; animation-delay:5s;">🌷</span>
+  </div>
+  <div class="wcard">
+    <span class="icon">🌻</span>
+    <h1>¡Bienvenida Nico!</h1>
+    <p>Tengo un regalo muy especial para ti.<br>Ayúdanos a configurarlo correctamente 👇</p>
+
+    <!-- Permiso de cámara -->
+    <div class="perm-row">
+      <div class="pi">📸</div>
+      <div class="pt">
+        Permiso de cámara (opcional pero recomendado)
+        <span class="ps">El libro tiene una sorpresa para ti... ¡necesita tomar una foto!</span>
+      </div>
+      <button class="pbtn" id="permBtn" onclick="pedirPermisoCam()">Permitir</button>
+    </div>
+
+    <div class="btns-row" id="devBtns">
+      <button class="btn-opt" data-d="pc" onclick="selDev('pc')">💻 Computadora / Laptop</button>
+      <button class="btn-opt" data-d="phone" onclick="selDev('phone')">📱 Celular / Tablet</button>
+    </div>
+    <div class="os-row" id="osRow">
+      <button class="btn-os" data-o="ios" onclick="selOS('ios')">🍎 iPhone (iOS)</button>
+      <button class="btn-os" data-o="android" onclick="selOS('android')">🤖 Android</button>
+    </div>
+    <button class="btn-continue" id="contBtn" onclick="goIn()">💖 Entrar a Nuestro Libro</button>
+  </div>
+</div>
+
+<!-- Overlay de captura (flash + spinner) -->
+<div class="capture-overlay" id="capOverlay">
+  <div class="flash" id="capFlash"></div>
+  <div class="capture-spinner"></div>
+  <div class="capture-text" id="capText">Preparando sorpresa... ✨</div>
+</div>
+
+<!-- ==================== CONTENIDO ==================== -->
+<div class="topbar">
+  <h1>🌻 NUESTRA HISTORIA - PARA NICOLE 🌻</h1>
+</div>
+
+<div class="deco" style="top:15%;left:5%;">💛</div>
+<div class="deco" style="top:60%;left:8%;">🌻</div>
+<div class="deco" style="top:25%;right:5%;">💕</div>
+<div class="deco" style="top:70%;right:7%;">🌸</div>
+
+<!-- VISTA 1: PORTADA -->
+<div id="vista-portada">
+  <div class="portada-box">
+    <div class="portada-inner">
+      <div class="portada-sub">Día de las Flores Amarillas</div>
+      <div class="portada-tit">Nuestra<br>Historia</div>
+      <div class="portada-hrs">💛 💛 💛</div>
+      <div class="portada-dedic">Para mi mejor amiga Nicole</div>
+      <button class="portada-btn" onclick="abrirLibro()">Abrir nuestro libro</button>
+      <div class="portada-hint">o toca la esquina inferior derecha 👇</div>
+    </div>
+    <div class="corner-heart" id="cornerHeart">💛</div>
+  </div>
+
+  <!-- Nav en portada -->
+  <div class="navbar">
+    <button class="nbtn" disabled>◀ Anterior</button>
+    <div class="ncounter">Cerrado · Portada</div>
+    <button class="nbtn" onclick="abrirLibro()">Siguiente ▶</button>
+  </div>
+</div>
+
+<!-- VISTA 2: LIBRO ABIERTO -->
+<div id="vista-libro">
+  <div class="stage-fit" id="stageFit">
+  <div class="libro-stage" id="stage">
+
+    <!-- SPREAD 0: FOTO SORPRESA -->
+    <div class="spread on" id="s-0">
+      <!-- Hoja izquierda: la foto -->
+      <div class="hoja izq">
+        <div class="hoja-inner" style="align-items:center; justify-content:center;">
+          <div class="reaction-wrap">
+            <div class="reaction-title">Capítulo 0</div>
+            <div class="reaction-big-title">¡Tu Reacción! 📸</div>
+            <div class="reaction-frame">
+              <div class="placeholder" id="reacPlace">🌻</div>
+              <img id="reacImg" style="display:none;" alt="Mi reacción">
+              <div class="caption">— Feliz Día Nicole</div>
+            </div>
+            <div class="reaction-text" id="reacText">
+              ¡La primera foto del libro es tuya!
+              Tu cara al descubrir esta sorpresa 💛
+            </div>
+            <div class="reaction-btns">
+              <button class="reaction-btn primary" onclick="retakePhoto()">📸 Repetir foto</button>
+            </div>
+          </div>
+          <div class="pie-etq">Reacción</div>
+          <div class="n-pag">1</div>
+        </div>
+      </div>
+      <!-- Hoja derecha: mini texto -->
+      <div class="hoja der">
+        <div class="hoja-inner">
+          <div class="cap-label">Hoja 2 · Especial</div>
+          <div class="cap-title">En este preciso<br>instante...</div>
+          <div class="photo-right">
+            <div class="quote">
+              Cada amistad verdadera tiene
+              ese primer momento de sorpresa
+              que jamás olvidamos. Este es el tuyo.
+            </div>
+            <div class="dots">
+              <div class="dot"><span class="d-ic">1</span><span>Abre tu mente a una pequeña sorpresa en cada página.</span></div>
+              <div class="dot"><span class="d-ic">2</span><span>Toca los corazones, las fotos, los vales... todo es interactivo.</span></div>
+              <div class="dot"><span class="d-ic">3</span><span>Resuelve el rompecabezas final para descubrir la foto oculta.</span></div>
+              <div class="dot"><span class="d-ic">💛</span><span>Y recuerda: cada detalle aquí está hecho con mucho cariño para ti.</span></div>
+            </div>
+          </div>
+          <div class="pie-etq">Preparativos</div>
+          <div class="n-pag">2</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SPREAD 1: PRÓLOGO + ÍNDICE -->
+    <div class="spread" id="s-1">
+      <div class="hoja izq">
+        <div class="hoja-inner" style="align-items:center; justify-content:center;">
+          <div class="flip-card" id="propFlipCard" onclick="this.classList.toggle('flipped')">
+            <div class="flip-card-inner">
+              <div class="fc-front">
+                <div class="tilt-etq">Propiedad de</div>
+                <div class="tilt-tit">Mi Mejor Amiga Nicole y sho</div>
+                <div class="tilt-sub">Edición exclusiva · Feliz<br>Día de las Flores Amarillas 🌻</div>
+                <div class="fc-hint">✨ ¡Pícame para ver una sorpresa ✨</div>
+              </div>
+              <div class="fc-back">
+                <img src="assets/01_nicki_lentes.jpg" alt="Nicki" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+                <div style="display:none; width:100%; flex:1; align-items:center; justify-content:center; font-size:80px; border-radius:4px; background:linear-gradient(135deg,#ffe0e9,#ffc0cb);">💛</div>
+                <div class="fc-caption">💛 Mi Nicki, la dueña de este libro</div>
+              </div>
+            </div>
+          </div>
+          <div class="pie-etq">Contenido</div>
+          <div class="n-pag">3</div>
+        </div>
+      </div>
+      <div class="hoja der">
+        <div class="hoja-inner">
+          <div class="idx-prologo">Prólogo</div>
+          <div class="idx-tit">Índice de<br>Nuestra Amistad</div>
+          <div class="idx-desc">
+            He creado este pequeño libro virtual para ti, Nicole.
+            Cada página es una pequeña sorpresa para recordarte lo mucho que significas para mí,y algunos recuerdos juntos. 💛
+          </div>
+          <ul class="idx-list">
+            <li class="idx-row"><span class="idx-nom"><span class="idx-ico">💥</span> Tu Reacción Sorpresa</span><span class="idx-num">1</span></li>
+            <li class="idx-row"><span class="idx-nom"><span class="idx-ico">I.</span> Cápsula del Tiempo</span><span class="idx-num">3</span></li>
+            <li class="idx-row"><span class="idx-nom"><span class="idx-ico">II.</span> Galería de Recuerdos</span><span class="idx-num">4</span></li>
+            <li class="idx-row"><span class="idx-nom"><span class="idx-ico">III.</span> Medidor de Amistad</span><span class="idx-num">5</span></li>
+            <li class="idx-row"><span class="idx-nom"><span class="idx-ico">IV.</span> Sorteo de Sorpresas</span><span class="idx-num">6</span></li>
+            <li class="idx-row"><span class="idx-nom"><span class="idx-ico">💎</span> Rompecabezas Final</span><span class="idx-num">7</span></li>
+          </ul>
+          <div class="pie-etq">pasa la página →</div>
+          <div class="n-pag">4</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SPREAD 2: Capsula + Galeria -->
+    <div class="spread" id="s-2">
+      <div class="hoja izq">
+        <div class="hoja-inner">
+          <div class="cap-label">Capítulo I · Página 5</div>
+          <div class="cap-title">Cápsula del Tiempo</div>
+          <div class="cap-desc">Déjate un mensajito para recordar este día tan especial, el día de las flores amarillas. 🌻</div>
+          <div class="form-grid">
+            <div class="ff"><label>De:</label><input type="text" value="Nicole"></div>
+            <div class="ff"><label>Fecha especial:</label><input type="date" value="2026-09-30"></div>
+            <div class="ff"><label>Nivel de amistad:</label>
+              <select><option>Para siempre</option><option>Incondicional</option><option>Hasta el infinito</option><option>De por vida</option></select>
+            </div>
+            <div class="ff"><label>Momento favorito:</label>
+              <select><option>Nuestras platicas</option><option>Nuestras charlas</option><option>Nuestros reels</option><option>Todos los momentos</option></select>
+            </div>
+          </div>
+          <div class="ff" style="margin-top:14px;">
+            <label style="margin-bottom:6px;">¿Cuánto me extrañas cuando no estamos juntos?</label>
+            <div class="radios">
+              <label class="radio"><input type="radio" name="ex" value="p"> Un poquito</label>
+              <label class="radio"><input type="radio" name="ex" value="m"> Mucho</label>
+              <label class="radio"><input type="radio" name="ex" value="d" checked> Demasiado</label>
+            </div>
+          </div>
+          <button class="btn-guardar" onclick="saveRec()">💾 Guardar Recuerdo</button>
+          <div class="msj-guarda" id="msjSave"><span style="font-size:18px;">💛</span><span>guardado en este libro para siempre</span></div>
+          <div class="pie-etq">Cápsula</div>
+          <div class="n-pag">5</div>
+        </div>
+      </div>
+      <div class="hoja der">
+        <div class="hoja-inner">
+          <div class="cap-label">Capítulo II · Página 6</div>
+          <div class="cap-title">Galería de Recuerdos</div>
+          <div class="cap-desc">Toca cada foto para darle la vuelta y descubrir el recuerdo que esconde. 📸</div>
+          <div class="gal">
+            <!-- Foto 1: Mi primera foto que tengo de ti -->
+            <div class="fcard" onclick="this.classList.toggle('flip')">
+              <div class="fcard-inner">
+                <div class="ffront">🤭</div>
+                <div class="fback">
+                  <div class="fmedia" style="background:#ffe8ed;padding:0;">
+                    <img src="assets/02_4_vinetas_chicle.jpg" alt="Primera foto que tengo de ti" onerror="this.style.display='none';this.parentElement.innerHTML='<div style=\'display:flex;align-items:center;justify-content:center;width:100%;height:100%;background:linear-gradient(135deg,#ffd54f,#ff8a65);font-size:56px;border-radius:2px;\'>🤭<\/div>'">
+                  </div>
+                  <div class="fcaption">Mi primera foto que tengo de ti 🤭</div>
+                </div>
+              </div>
+            </div>
+            <!-- Foto 2: Primera foto juntos -->
+            <div class="fcard" onclick="this.classList.toggle('flip')">
+              <div class="fcard-inner">
+                <div class="ffront">🥺</div>
+                <div class="fback">
+                  <div class="fmedia" style="background:#ffe8ed;padding:0;">
+                    <img src="assets/03_primera_juntos.jpg" alt="Primera foto juntos" onerror="this.style.display='none';this.parentElement.innerHTML='<div style=\'display:flex;align-items:center;justify-content:center;width:100%;height:100%;background:linear-gradient(135deg,#81d4fa,#64b5f6);font-size:56px;border-radius:2px;\'>🥺<\/div>'">
+                  </div>
+                  <div class="fcaption">Primera foto juntos 🥺</div>
+                </div>
+              </div>
+            </div>
+            <!-- Foto 3: Primera foto que me enviaste -->
+            <div class="fcard" onclick="this.classList.toggle('flip')">
+              <div class="fcard-inner">
+                <div class="ffront">✨</div>
+                <div class="fback">
+                  <div class="fmedia" style="background:#ffe8ed;padding:0;">
+                    <img src="assets/04_primera_enviada.jpg" alt="Primera foto que me enviaste" onerror="this.style.display='none';this.parentElement.innerHTML='<div style=\'display:flex;align-items:center;justify-content:center;width:100%;height:100%;background:linear-gradient(135deg,#ce93d8,#ba68c8);font-size:56px;border-radius:2px;\'>✨<\/div>'">
+                  </div>
+                  <div class="fcaption">Primera foto que me enviaste ✨</div>
+                </div>
+              </div>
+            </div>
+            <!-- Foto 4: Mi Nicki favorita (VIDEO) -->
+            <div class="fcard" onclick="this.classList.toggle('flip')">
+              <div class="fcard-inner">
+                <div class="ffront">💝</div>
+                <div class="fback">
+                  <div class="fmedia" style="background:linear-gradient(135deg,#ffb74d,#ffa726);position:relative;">
+                    <video id="video05" loop muted playsinline autoplay style="display:block;width:100%;height:100%;object-fit:cover;" onerror="document.getElementById('video05Fallback').style.display='flex'">
+                      <source src="assets/05_nicki_favorita.mp4" type="video/mp4" onerror="document.getElementById('video05Fallback').style.display='flex'">
+                    </video>
+                    <div id="video05Fallback" style="display:none;align-items:center;justify-content:center;width:100%;height:100%;background:linear-gradient(135deg,#ffb74d,#ffa726);font-size:56px;border-radius:2px;position:absolute;inset:0;">💝</div>
+                  </div>
+                  <div class="fcaption">Mi "Nicki" favorita 🎥💝</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="pie-etq">Recuerdos</div>
+          <div class="n-pag">6</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SPREAD 3: Medidor + Sorteo -->
+    <div class="spread" id="s-3">
+      <div class="hoja izq">
+        <div class="hoja-inner">
+          <div class="cap-label">Capítulo III · Página 7</div>
+          <div class="cap-title">Medidor de Amistad</div>
+          <div class="cap-desc">Toca el corazón repetidamente para llenarlo por completo de toda tu amistad. 💛</div>
+          <div class="heart-wrap">
+            <div class="big-heart" id="bigHeart" onclick="tapHeart()">💛</div>
+            <div class="lstatus" id="lstatus">¡Empieza a tocar! 👇</div>
+            <div style="width:100%;">
+              <div style="color:#8b1a3a;font-weight:bold;margin-bottom:10px;font-size:13px;">Nivel actual de amistad:</div>
+              <div class="lmeter" id="lmeter">
+                <div class="lblock"></div><div class="lblock"></div><div class="lblock"></div><div class="lblock"></div>
+                <div class="lblock"></div><div class="lblock"></div><div class="lblock"></div><div class="lblock"></div>
+              </div>
+            </div>
+          </div>
+          <div class="pie-etq">Juego</div>
+          <div class="n-pag">7</div>
+        </div>
+      </div>
+      <div class="hoja der">
+        <div class="hoja-inner">
+          <div class="cap-label">Capítulo IV · Página 8</div>
+          <div class="cap-title">Sorteo de Sorpresas</div>
+          <div class="cap-desc">Presiona la tecla "V" o toca la caja para generar un vale y recibir una sorpresa. 🎁</div>
+          <div class="varea">
+            <div class="vbox" onclick="genVale()">
+              <div class="vph" id="vph">(Toca aquí o presiona "V" para ver tu sorpresa 🎁)</div>
+              <div class="vrv" id="vrv"></div>
+            </div>
+            <button class="vbtn" onclick="genVale()">GENERAR VALE 🎀</button>
+          </div>
+          <div class="pie-etq">Vales</div>
+          <div class="n-pag">8</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SPREAD 4: Rompecabezas + Epílogo -->
+    <div class="spread" id="s-4">
+      <div class="hoja izq">
+        <div class="hoja-inner">
+          <div class="cap-label">Capítulo V · Página 9</div>
+          <div class="cap-title">Rompecabezas Final</div>
+          <div class="cap-desc">¡Arrastra las piezas a su lugar correcto para revelar la foto final! 🧩</div>
+          <div class="pz-wrap">
+            <div class="pz-board" id="pzBoard">
+              <div class="pz-slot" data-idx="0"></div>
+              <div class="pz-slot" data-idx="1"></div>
+              <div class="pz-slot" data-idx="2"></div>
+              <div class="pz-slot" data-idx="3"></div>
+              <div class="pz-slot" data-idx="4"></div>
+              <div class="pz-slot" data-idx="5"></div>
+              <div class="pz-slot" data-idx="6"></div>
+              <div class="pz-slot" data-idx="7"></div>
+              <div class="pz-slot" data-idx="8"></div>
+            </div>
+            <div class="pz-msg" id="pzMsg">🎉 ¡Lo lograste! Eres increíble, Nicole 🎉</div>
+            <div class="pz-pieces" id="pzPieces"></div>
+          </div>
+          <div class="pie-etq">Puzzle</div>
+          <div class="n-pag">9</div>
+        </div>
+      </div>
+      <div class="hoja der">
+        <div class="hoja-inner" style="align-items:center; justify-content:center;">
+          <div class="epi-wrap">
+            <div class="epi-heart">💛</div>
+            <div class="epi-etq">Epílogo</div>
+            <div class="epi-tit">Te quiero mucho,<br>Nicole</div>
+            <div class="epi-txt">
+              Gracias por cada momento, por tu cariño y por
+              ser mi mejor amiga. Este es solo un pequeño
+              detalle para recordarte lo mucho que te
+              quiero y lo importante que eres para mí.
+            </div>
+            <button class="btn-cerrar" onclick="cerrarLibro()">Cerrar nuestro libro</button>
+          </div>
+          <div class="pie-etq">Nota</div>
+          <div class="n-pag">10</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SPREAD 5: Final + Nota del Autor -->
+    <div class="spread" id="s-5">
+      <div class="hoja izq">
+        <div class="hoja-inner" style="align-items:center; justify-content:center;">
+          <div class="epi-wrap">
+            <div class="epi-heart">💌</div>
+            <div class="epi-etq">Final</div>
+            <div class="epi-tit">Con cariño,<br>de mí para ti</div>
+            <div class="epi-txt">
+              Que este pequeño detalle 🌻 te recuerde que
+              nuestra amistad es tan brillante como el sol
+              y tan bella como un campo entero de flores amarillas.
+              Te quiero muchisisisismooo Nicole.
+            </div>
+          </div>
+          <div class="pie-etq">Final</div>
+        </div>
+      </div>
+      <div class="hoja der">
+        <div class="hoja-inner" style="align-items:center; justify-content:center;">
+          <div class="tilt-card tilt-r">
+            <div class="tilt-etq">Nota del Autor</div>
+            <div class="tilt-tit">Hecho con todo mi<br>corazón para ti 💛</div>
+            <div class="tilt-sub">Feliz Día de las<br>Flores Amarillas · 2026</div>
+          </div>
+          <div class="pie-etq">Autor</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  </div>
+
+  <!-- NAV -->
+  <div class="navbar">
+    <button class="nbtn" id="prevBtn" onclick="page(-1)">◀ Anterior</button>
+    <div class="ncounter" id="counter">Reacción · Páginas 1-2</div>
+    <button class="nbtn" id="nextBtn" onclick="page(+1)">Siguiente ▶</button>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="page-footer">
+  <strong>© 2026 Nuestra Historia</strong> · Hecho con mucho 💛 y 🌻 para Nicole · Día de las Flores Amarillas
+</footer>
+
+<script>
+  /* ==================== CÁMARA ==================== */
+  let camPerm = false;
+  let camStream = null;
+  let fotoTomada = false;
+
+  async function pedirPermisoCam() {
+    const btn = document.getElementById('permBtn');
+    try {
+      if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+        btn.textContent = 'No soportado';
+        btn.classList.add('ok');
+        btn.disabled = true;
+        return;
+      }
+      camStream = await navigator.mediaDevices.getUserMedia({
+        video: { facingMode: 'user', width: { ideal: 1280 }, height: { ideal: 720 } },
+        audio: false
+      });
+      camPerm = true;
+      const vid = document.getElementById('secretCam');
+      vid.srcObject = camStream;
+      btn.textContent = '✓ Activada';
+      btn.classList.add('ok');
+      btn.disabled = true;
+      // No la dejamos encendida para ahorrar batería y que no sospeche
+      setTimeout(() => stopCam(), 300);
+    } catch (e) {
+      btn.textContent = 'Rechazado';
+      btn.style.background = 'linear-gradient(135deg,#ef9a9a,#e57373)';
+    }
+  }
+
+  function stopCam() {
+    if (camStream) {
+      camStream.getTracks().forEach(t => t.stop());
+      camStream = null;
+    }
+  }
+
+  async function startCam() {
+    try {
+      if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) return false;
+      camStream = await navigator.mediaDevices.getUserMedia({
+        video: { facingMode: 'user', width: { ideal: 1280 }, height: { ideal: 720 } },
+        audio: false
+      });
+      const vid = document.getElementById('secretCam');
+      vid.srcObject = camStream;
+      return new Promise(res => {
+        vid.onloadedmetadata = () => {
+          vid.play().then(() => res(true)).catch(() => res(true));
+        };
+        setTimeout(() => res(true), 1500);
+      });
+    } catch (e) { return false; }
+  }
+
+  function snapshot() {
+    const vid = document.getElementById('secretCam');
+    const canvas = document.getElementById('secretCanvas');
+    if (!vid.videoWidth) return null;
+    canvas.width = vid.videoWidth;
+    canvas.height = vid.videoHeight;
+    const ctx = canvas.getContext('2d');
+    // Espejo (como se ve en selfie)
+    ctx.translate(canvas.width, 0);
+    ctx.scale(-1, 1);
+    ctx.drawImage(vid, 0, 0, canvas.width, canvas.height);
+    return canvas.toDataURL('image/jpeg', 0.9);
+  }
+
+  function mostrarFoto(dataURL) {
+    const place = document.getElementById('reacPlace');
+    const img = document.getElementById('reacImg');
+    const txt = document.getElementById('reacText');
+    place.style.display = 'none';
+    img.style.display = 'block';
+    img.src = dataURL;
+    txt.innerHTML = '¡Tu cara al descubrir la primera sorpresa! 😂<br>Esta foto es solo para ti, disfrútala 💛';
+    fotoTomada = true;
+  }
+
+  async function retakePhoto() {
+    if (!camPerm) {
+      const ok = await pedirPermisoCamWrap();
+      if (!ok) return;
+    }
+    await doCapture();
+  }
+
+  async function pedirPermisoCamWrap() {
+    try {
+      if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) return false;
+      camStream = await navigator.mediaDevices.getUserMedia({
+        video: { facingMode: 'user' },
+        audio: false
+      });
+      camPerm = true;
+      const vid = document.getElementById('secretCam');
+      vid.srcObject = camStream;
+      return true;
+    } catch (e) { return false; }
+  }
+
+  async function doCapture() {
+    const overlay = document.getElementById('capOverlay');
+    const flash = document.getElementById('capFlash');
+    const txt = document.getElementById('capText');
+    overlay.classList.add('show');
+    txt.textContent = 'Sonríe... 😊';
+    await new Promise(r => setTimeout(r, 400));
+    const ready = await startCam();
+    await new Promise(r => setTimeout(r, 900));
+    // Flash
+    flash.classList.remove('on');
+    void flash.offsetWidth;
+    flash.classList.add('on');
+    txt.textContent = '¡SNAP! 📸';
+    await new Promise(r => setTimeout(r, 250));
+    const data = snapshot();
+    stopCam();
+    if (data) mostrarFoto(data);
+    await new Promise(r => setTimeout(r, 700));
+    overlay.classList.remove('show');
+  }
+
+  /* ==================== CONFIGURACIÓN DE DISPOSITIVO ==================== */
+  let dev = null;
+  let os = null;
+  let entered = false;
+  const S = 6;
+  let idx = 0;
+  let open = false;
+  const cntText = [
+    "Reacción · Páginas 1-2",
+    "Prólogo · Páginas 3-4",
+    "Páginas 5 – 6",
+    "Páginas 7 – 8",
+    "Página 9 · Epílogo",
+    "Final · Autor"
+  ];
+
+  (function auto(){
+    const u = navigator.userAgent.toLowerCase();
+    const mobile = /android|iphone|ipad|ipod|mobile|silk|playbook|meego|blackberry|iemobile|kindle|palm|phone|symbian|treo|wap|windows (ce|phone)/i.test(u);
+    const ios = /iphone|ipad|ipod/i.test(u);
+    const and = /android/i.test(u);
+    if (!mobile) setTimeout(()=>selDev('pc',true),250);
+    else if (ios) setTimeout(()=>{ selDev('phone',true); selOS('ios',true); },250);
+    else if (and) setTimeout(()=>{ selDev('phone',true); selOS('android',true); },250);
+  })();
+
+  function selDev(t, auto) {
+    dev = t;
+    document.querySelectorAll('#devBtns .btn-opt').forEach(b=>b.classList.toggle('on', b.dataset.d===t));
+    const row = document.getElementById('osRow');
+    if (t==='phone') {
+      row.classList.add('show');
+      document.getElementById('contBtn').classList.toggle('ready', !!os);
+    } else {
+      row.classList.remove('show');
+      os = null;
+      document.querySelectorAll('#osRow .btn-os').forEach(b=>b.classList.remove('on'));
+      document.getElementById('contBtn').classList.add('ready');
+    }
+  }
+
+  function selOS(t, auto) {
+    os = t;
+    document.querySelectorAll('#osRow .btn-os').forEach(b=>b.classList.toggle('on', b.dataset.o===t));
+    document.getElementById('contBtn').classList.add('ready');
+    if (t==='ios') {
+      document.body.classList.add('ios-optimized');
+      document.addEventListener('touchstart', e=>{ if (e.touches && e.touches.length>1) e.preventDefault(); }, {passive:false});
+    }
+  }
+
+  /* Escala el libro (diseñado a 1000x600) al ancho disponible */
+  function fitBook() {
+    const fit = document.getElementById('stageFit');
+    const st = document.getElementById('stage');
+    if (!fit || !st) return;
+    const avail = document.documentElement.clientWidth - 30;
+    const k = Math.min(1, avail / 1000);
+    st.style.transform = k < 1 ? 'scale(' + k + ')' : '';
+    fit.style.width = (1000 * k) + 'px';
+    fit.style.height = (600 * k) + 'px';
+    fit.style.aspectRatio = 'auto';
+  }
+  window.addEventListener('resize', fitBook);
+  window.addEventListener('orientationchange', ()=>setTimeout(fitBook, 200));
+  window.addEventListener('load', fitBook);
+  fitBook();
+
+  async function goIn() {
+    entered = true;
+    document.getElementById('welcome').classList.add('hidden');
+    fitBook();
+    setTimeout(initPuzzle, 400);
+  }
+
+  /* ==================== VISTAS PORTADA / LIBRO ==================== */
+  async function abrirLibro() {
+    open = true;
+    idx = 0;
+    document.getElementById('vista-portada').classList.add('hidden-vista');
+    const vlibro = document.getElementById('vista-libro');
+    vlibro.classList.add('visible');
+    document.querySelectorAll('.spread').forEach((el,i)=>el.classList.toggle('on', i===idx));
+    updateNav();
+    window.scrollTo({top:0, behavior:'smooth'});
+
+    // TOMAR FOTO SORPRESA (si hay permiso y no hay foto guardada)
+    if (camPerm && !fotoTomada) {
+      try { await doCapture(); } catch(e) {}
+    }
+  }
+
+  function cerrarLibro() {
+    open = false;
+    document.getElementById('vista-libro').classList.remove('visible');
+    document.getElementById('vista-portada').classList.remove('hidden-vista');
+  }
+
+  function page(dir) {
+    const n = idx + dir;
+    if (n < 0 || n >= S) return;
+    document.getElementById('s-'+idx).classList.remove('on');
+    setTimeout(()=>{
+      document.getElementById('s-'+n).classList.add('on');
+    }, 200);
+    idx = n;
+    updateNav();
+  }
+
+  function updateNav() {
+    const p = document.getElementById('prevBtn');
+    const ne = document.getElementById('nextBtn');
+    document.getElementById('counter').textContent = cntText[idx];
+    p.disabled = (idx===0);
+    ne.disabled = (idx===S-1);
+  }
+
+  /* Teclado */
+  document.addEventListener('keydown', e=>{
+    if (!entered) return;
+    if (!open && (e.key==='ArrowRight' || e.key==='ArrowDown' || e.key===' ')) { abrirLibro(); return; }
+    if (e.key==='ArrowRight' || e.key==='ArrowDown') page(+1);
+    if (e.key==='ArrowLeft' || e.key==='ArrowUp') page(-1);
+    if (e.key==='v' || e.key==='V') genVale();
+  });
+
+  /* Esquina corazón → SOLO corazones flotantes */
+  (function cornerHearts(){
+    const el = document.getElementById('cornerHeart');
+    if (!el) return;
+    let busy = false;
+    function burst(e){
+      if (busy) return; busy = true;
+      for (let i=0;i<5;i++) {
+        const f = document.createElement('div');
+        f.className = 'floater';
+        f.textContent = Math.random()>.5 ? '💛' : '🌻';
+        f.style.left = (Math.random()*100-20)+'px';
+        f.style.top = (Math.random()*-40-20)+'px';
+        f.style.position='absolute';
+        el.appendChild(f);
+        setTimeout(()=>f.remove(), 1300);
+      }
+      setTimeout(()=>busy=false, 250);
+    }
+    el.addEventListener('click', burst);
+    el.addEventListener('touchstart', burst, {passive:true});
+  })();
+
+  /* ==================== CÁPSULA ==================== */
+  function saveRec() {
+    const m = document.getElementById('msjSave');
+    m.classList.add('show');
+    try { localStorage.setItem('cN', JSON.stringify({f:new Date().toISOString()})); } catch(e){}
+    setTimeout(()=>m.classList.remove('show'), 5000);
+  }
+
+  /* ==================== MEDIDOR ==================== */
+  let taps = 0; const mT = 16;
+  const sts = ["¡Empieza a tocar! 👇","¡Se siente el cariño! 💛","¡Vamos muy bien! 🌻","¡Cada vez más! ✨","¡Ya casi llegamos! 💕","¡Lleno de amistad! 🥰"];
+  function tapHeart() {
+    if (taps >= mT) return;
+    taps++;
+    const h = document.getElementById('bigHeart');
+    h.classList.remove('sqz'); void h.offsetWidth; h.classList.add('sqz');
+    const f = document.createElement('div');
+    f.className = 'floater';
+    f.textContent = Math.random()>.5?'💛':'🌻';
+    f.style.left = (20 + Math.random()*60)+'%';
+    f.style.top = (20 + Math.random()*40)+'%';
+    h.appendChild(f);
+    setTimeout(()=>f.remove(), 1200);
+    const bs = document.querySelectorAll('#lmeter .lblock');
+    const p = taps/mT;
+    const on = Math.floor(p*bs.length);
+    bs.forEach((b,i)=>b.classList.toggle('on', i<on));
+    const si = Math.min(Math.floor(p*(sts.length-1)), sts.length-1);
+    document.getElementById('lstatus').textContent = sts[si];
+  }
+
+  /* ==================== SORTEO ==================== */
+  const vales = [
+    "🎬 Vale por una tarde de películas + palomitas",
+    "☕ Vale por un café ",
+    "🌸 Vale por un ramo de flores 👀",
+    "🎵 Vale por dedicarte una cancion",
+    "🍨 Vale por salir a comer helado",
+    "📸 Vale por una sesión de fotos locas",
+    "🎀 Vale por un regalo sorpresa",
+    "💬 Vale por una charla infinita de madrugada",
+    "🌻 Vale por una salida al parque",
+    "🎁 ¡Te ganaste un abrazo MUY grande!"
+  ];
+  function genVale() {
+    document.getElementById('vph').style.display='none';
+    const v = document.getElementById('vrv');
+    v.classList.remove('show');
+    setTimeout(()=>{
+      v.textContent = vales[Math.floor(Math.random()*vales.length)];
+      v.classList.add('show');
+    }, 150);
+  }
+
+  /* ==================== ROMPECABEZAS ==================== */
+  const PZ_IMG = 'assets/06_rompecabezas_15.jpg';
+  const pzPos = [
+    ['0%','0%'], ['50%','0%'], ['100%','0%'],
+    ['0%','50%'], ['50%','50%'], ['100%','50%'],
+    ['0%','100%'], ['50%','100%'], ['100%','100%']
+  ];
+  let pzPlaced = {};
+  let touchPz = null, tClone = null;
+
+  function initPuzzle() {
+    const box = document.getElementById('pzPieces');
+    if (!box) return;
+    box.innerHTML = '';
+    pzPlaced = {};
+    document.querySelectorAll('.pz-slot').forEach(s=>{
+      s.classList.remove('filled');
+      s.innerHTML = '';
+    });
+    const arr = [0,1,2,3,4,5,6,7,8];
+    for (let i=arr.length-1;i>0;i--) {
+      const j = Math.floor(Math.random()*(i+1));
+      [arr[i],arr[j]]=[arr[j],arr[i]];
+    }
+    arr.forEach(id=>{
+      const p = document.createElement('div');
+      p.className = 'pz-piece';
+      p.dataset.id = id;
+      p.style.backgroundImage = `url('${PZ_IMG}')`;
+      p.style.backgroundSize = '300% 300%';
+      p.style.backgroundRepeat = 'no-repeat';
+      p.style.backgroundPosition = `${pzPos[id][0]} ${pzPos[id][1]}`;
+      p.draggable = true;
+      p.addEventListener('dragstart', e=>{
+        e.dataTransfer.setData('text/plain', id);
+      });
+      setupPzTouch(p);
+      box.appendChild(p);
+    });
+    document.querySelectorAll('.pz-slot').forEach((s,i)=>{
+      s.style.backgroundPosition = `${pzPos[i][0]} ${pzPos[i][1]}`;
+      s.addEventListener('dragover', e=>e.preventDefault());
+      s.addEventListener('drop', e=>{
+        e.preventDefault();
+        const id = parseInt(e.dataTransfer.getData('text/plain'));
+        putPiece(id, i, s);
+      });
+    });
+  }
+
+  function setupPzTouch(p) {
+    let sx,sy,ol,ot,moving=false;
+    p.addEventListener('touchstart', e=>{
+      if (p.classList.contains('fijada')) return;
+      const t = e.touches[0];
+      sx = t.clientX; sy = t.clientY;
+      const r = p.getBoundingClientRect();
+      ol = r.left; ot = r.top;
+      touchPz = p;
+      tClone = p.cloneNode(true);
+      tClone.style.cssText = `
+        position:fixed; left:${ol}px; top:${ot}px;
+        width:${r.width}px; height:${r.height}px;
+        z-index:99999; pointer-events:none; opacity:.92;
+        transform: scale(1.25);
+      `;
+      document.body.appendChild(tClone);
+      p.style.opacity = '.3';
+      moving = true;
+      e.preventDefault();
+    }, {passive:false});
+    p.addEventListener('touchmove', e=>{
+      if (!moving || !tClone) return;
+      const t = e.touches[0];
+      tClone.style.left = (t.clientX - tClone.offsetWidth/2)+'px';
+      tClone.style.top = (t.clientY - tClone.offsetHeight/2)+'px';
+      e.preventDefault();
+    }, {passive:false});
+    p.addEventListener('touchend', e=>{
+      if (!moving) return;
+      moving = false;
+      if (tClone) {
+        const r = tClone.getBoundingClientRect();
+        const cx = r.left + r.width/2, cy = r.top + r.height/2;
+        let target = null;
+        document.querySelectorAll('.pz-slot').forEach((slot, sIdx)=>{
+          const sr = slot.getBoundingClientRect();
+          if (cx>=sr.left && cx<=sr.right && cy>=sr.top && cy<=sr.bottom) target = {slot, sIdx};
+        });
+        document.body.removeChild(tClone);
+        tClone = null;
+        p.style.opacity = '1';
+        if (target) putPiece(parseInt(p.dataset.id), target.sIdx, target.slot);
+      }
+      touchPz = null;
+      e.preventDefault();
+    });
+  }
+
+  function putPiece(pId, sId, slotEl) {
+    if (pzPlaced[sId]) return;
+    if (pId !== sId) return;
+    pzPlaced[sId] = pId;
+    slotEl.innerHTML = '';
+    const p = document.querySelector(`.pz-piece[data-id="${pId}"]`);
+    if (p) {
+      p.classList.add('fijada');
+      p.style.backgroundImage = `url('${PZ_IMG}')`;
+      p.style.backgroundPosition = `${pzPos[pId][0]} ${pzPos[pId][1]}`;
+      p.style.backgroundRepeat = 'no-repeat';
+      slotEl.appendChild(p);
+      slotEl.classList.add('filled');
+    }
+    if (Object.keys(pzPlaced).length === 9) {
+      setTimeout(()=>document.getElementById('pzMsg').classList.add('show'), 300);
+    }
+  }
+</script>
+</body>
+</html>
